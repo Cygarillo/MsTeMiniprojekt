@@ -7,7 +7,10 @@ namespace AutoReservation.Common.DataTransferObjects
     [DataContract]
     public class KundeDto : DtoBase
     {
-
+        private int _id;
+        private DateTime _geburtstag;
+        private string _vorname ;
+        private string _nachname;
         public override string Validate()
         {
             StringBuilder error = new StringBuilder();
@@ -51,12 +54,61 @@ namespace AutoReservation.Common.DataTransferObjects
         }
 
         [DataMember]
-        public int Id { get; set; }
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    SendPropertyChanging(() => Id);
+                    _id = value;
+                    SendPropertyChanged(() => Id);
+                }
+            }
+        }
         [DataMember]
-        public string Nachname { get; set; }
+        public string Nachname
+        {
+            get { return _nachname; }
+            set
+            {
+                if (_nachname != value)
+                {
+                    SendPropertyChanging(() => Nachname);
+                    _nachname = value;
+                    SendPropertyChanged(() => Nachname);
+                }
+            }
+        }
         [DataMember]
-        public string Vorname { get; set; }
+        public string Vorname
+        {
+            get { return _vorname; }
+            set
+            {
+                if (_vorname != value)
+                {
+                    SendPropertyChanging(() => Vorname);
+                    _vorname = value;
+                    SendPropertyChanged(() => Vorname);
+                }
+            }
+        }
+
         [DataMember]
-        public DateTime Geburtsdatum { get; set; }
+        public DateTime Geburtstag
+        {
+            get { return _geburtstag; }
+            set
+            {
+                if (_geburtstag != value)
+                {
+                    SendPropertyChanging(() => Geburtstag);
+                    _geburtstag = value;
+                    SendPropertyChanged(() => Geburtstag);
+                }
+            }
+        }
     }
 }

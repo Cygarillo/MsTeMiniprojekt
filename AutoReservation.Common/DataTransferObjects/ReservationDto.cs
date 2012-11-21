@@ -5,8 +5,13 @@ using System.Text;
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    public class ReservationDto //: DtoBase
+    public class ReservationDto : DtoBase
     {
+        private DateTime _von;
+        private DateTime _bis;
+        private int _reservationNr;
+        private KundeDto _kunde;
+        private AutoDto _auto;
 
         public override string Validate()
         {
@@ -76,15 +81,80 @@ namespace AutoReservation.Common.DataTransferObjects
                 Auto,
                 Kunde);
         }
+
         [DataMember]
-        public DateTime Bis { get; set; }
+        public DateTime Von
+        {
+            get { return _von; }
+            set
+            {
+                if (_von != value)
+                {
+                    SendPropertyChanging(() => Von);
+                    _von = value;
+                    SendPropertyChanged(() => Von);
+                }
+            }
+        }
+
         [DataMember]
-        public DateTime Von { get; set; }
+        public DateTime Bis
+        {
+            get { return _bis; }
+            set
+            {
+                if (_bis != value)
+                {
+                    SendPropertyChanging(() => Bis);
+                    _bis = value;
+                    SendPropertyChanged(() => Bis);
+                }
+            }
+        }
+
         [DataMember]
-        public int ReservationNr { get; set; }
+        public int ReservationNr
+        {
+            get { return _reservationNr; }
+            set
+            {
+                if (_reservationNr != value)
+                {
+                    SendPropertyChanging(() => ReservationNr);
+                    _reservationNr = value;
+                    SendPropertyChanged(() => ReservationNr);
+                }
+            }
+        }
+
         [DataMember]
-        public KundeDto Kunde { get; set; }
+        public KundeDto Kunde
+        {
+            get { return _kunde; } 
+            set
+            {
+                if(_kunde != value)
+                {
+                    SendPropertyChanging(() => Kunde);
+                    _kunde = value;
+                    SendPropertyChanged(() => Kunde);
+                }
+            }
+        }
+
         [DataMember]
-        public AutoDto Auto { get; set; }
+        public AutoDto Auto
+        {
+            get { return _auto; }
+            set
+            {
+                if(_auto != value)
+                {
+                    SendPropertyChanging(() => Auto);
+                    _auto = value;
+                    SendPropertyChanged(() => Auto);
+                }
+            }
+        }
     }
 }
