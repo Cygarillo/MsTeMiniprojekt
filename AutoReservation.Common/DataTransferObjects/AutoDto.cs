@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace AutoReservation.Common.DataTransferObjects
@@ -9,7 +10,7 @@ namespace AutoReservation.Common.DataTransferObjects
         private int _id;
         private AutoKlasse _autoklasse;
         private string _marke;
-        private int _basistarif;
+        private Nullable<int> _basistarif;
         private int _tagestarif;
 
         public override string Validate()
@@ -56,7 +57,7 @@ namespace AutoReservation.Common.DataTransferObjects
                 AutoKlasse);
         }
         [DataMember]
-        public int Basistarif
+        public Nullable<int> Basistarif
         {
             get { return _basistarif; }
             set
