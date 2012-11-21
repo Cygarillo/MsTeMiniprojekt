@@ -12,7 +12,7 @@ namespace AutoReservation.Dal
     using System;
     using System.Collections.Generic;
     
-    public partial class Auto
+    public abstract partial class Auto
     {
         public Auto()
         {
@@ -21,7 +21,6 @@ namespace AutoReservation.Dal
     
         public int Id { get; set; }
         public string Marke { get; set; }
-        public int AutoKlasse { get; set; }
         public int Tagestarif { get; set; }
     
         public virtual ICollection<Reservation> Reservation { get; set; }
