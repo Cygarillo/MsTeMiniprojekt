@@ -204,7 +204,7 @@ namespace AutoReservation.BusinessLayer
         {
             using (var context = new AutoReservationEntities())
             {
-                return (from a in context.Autos where a.Id == id select a).ElementAtOrDefault(0);
+                return (from a in context.Autos where a.Id == id select a).ToList().ElementAtOrDefault(0);
             }
         }
 
@@ -212,7 +212,7 @@ namespace AutoReservation.BusinessLayer
         {
             using (var context = new AutoReservationEntities())
             {
-                return (from k in context.Kunden where k.Id == id select k).ElementAtOrDefault(0);
+                return (from k in context.Kunden where k.Id == id select k).ToList().ElementAtOrDefault(0);
             }
         }
 
@@ -220,7 +220,7 @@ namespace AutoReservation.BusinessLayer
         {
             using (var context = new AutoReservationEntities())
             {
-                return (from r in context.Reservationen where r.ReservationNr == id select r).ElementAtOrDefault(0);
+                return (from r in context.Reservationen where r.ReservationNr == id select r).ToList().ElementAtOrDefault(0);
             }
         }
     }
