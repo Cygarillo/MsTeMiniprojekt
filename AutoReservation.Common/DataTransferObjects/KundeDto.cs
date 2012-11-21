@@ -8,7 +8,7 @@ namespace AutoReservation.Common.DataTransferObjects
     public class KundeDto : DtoBase
     {
         private int _id;
-        private DateTime _geburtstag;
+        private DateTime _geburtsdatum;
         private string _vorname ;
         private string _nachname;
         public override string Validate()
@@ -97,16 +97,16 @@ namespace AutoReservation.Common.DataTransferObjects
         }
 
         [DataMember]
-        public DateTime Geburtstag
+        public DateTime Geburtsdatum
         {
-            get { return _geburtstag; }
+            get { return _geburtsdatum; }
             set
             {
-                if (_geburtstag != value)
+                if (_geburtsdatum != value)
                 {
-                    SendPropertyChanging(() => Geburtstag);
-                    _geburtstag = value;
-                    SendPropertyChanged(() => Geburtstag);
+                    SendPropertyChanging(() => Geburtsdatum);
+                    _geburtsdatum = value;
+                    SendPropertyChanged(() => Geburtsdatum);
                 }
             }
         }
