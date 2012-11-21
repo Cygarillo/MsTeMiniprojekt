@@ -27,7 +27,7 @@ namespace AutoReservation.Testing
             {
                 if (target == null)
                 {
-                    ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
+                    var channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
                     target = channelFactory.CreateChannel();
                 }
                 return target;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AutoReservation.Common.Interfaces
 {
-    interface IAutoReservationService
+    public interface IAutoReservationService
     {
     }
 }
