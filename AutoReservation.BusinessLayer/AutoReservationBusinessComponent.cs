@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using AutoReservation.Dal;
+using System.Data.Entity;
 
 namespace AutoReservation.BusinessLayer
 {
@@ -27,19 +28,19 @@ namespace AutoReservation.BusinessLayer
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    HandleDbConcurrencyException(context, res);   
+                    HandleDbConcurrencyException(context, res);
                 }
             }
-            
+
         }
 
         public List<Reservation> GetReservationen()
         {
             using (var context = new AutoReservationEntities())
             {
-                return (from r in context.Reservationen select r).ToList();
+                return context.Reservationen.Include(r => r.Kunde).Include(r => r.Auto).ToList();
             }
-        } 
+        }
 
         public void UpdateReservation(Reservation original, Reservation modified)
         {
@@ -53,11 +54,11 @@ namespace AutoReservation.BusinessLayer
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    HandleDbConcurrencyException(context,original);
+                    HandleDbConcurrencyException(context, original);
                 }
-                
+
             }
-            
+
         }
 
         public void DeleteReservation(Reservation res)
@@ -147,7 +148,7 @@ namespace AutoReservation.BusinessLayer
                 return (from k in context.Kunden select k).ToList();
 
             }
-        } 
+        }
         public void AddKunden(Kunde kunde)
         {
             using (var context = new AutoReservationEntities())
@@ -216,11 +217,11 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public Reservation GetReservation(int id)
+        public Reservation GetReservation(int reservationNr)
         {
             using (var context = new AutoReservationEntities())
             {
-                return (from r in context.Reservationen where r.ReservationNr == id select r).ToList().ElementAtOrDefault(0);
+                return context.Reservationen.Include(r => r.Kunde).Include(r => r.Auto).FirstOrDefault(r => r.ReservationNr == reservationNr);
             }
         }
     }

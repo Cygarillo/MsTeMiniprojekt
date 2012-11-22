@@ -21,37 +21,37 @@ namespace AutoReservation.Testing
         [TestMethod]
         public void AutosTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Assert.AreEqual(3, new HashSet<int>(Target.GetAutos().ConvertAll(input => input.Id)).Count);
         }
 
         [TestMethod]
         public void KundenTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Assert.AreEqual(4, new HashSet<int>(Target.GetKunden().ConvertAll(input => input.Id)).Count);
         }
 
         [TestMethod]
         public void ReservationenTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Assert.AreEqual(3, new HashSet<int>(Target.GetReservationen().ConvertAll(input => input.ReservationNr)).Count);
         }
 
         [TestMethod]
         public void GetAutoByIdTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Assert.IsNotNull(Target.GetAuto(1));
         }
 
         [TestMethod]
         public void GetKundeByIdTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Assert.IsNotNull(Target.GetKunde(1));
         }
 
         [TestMethod]
         public void GetReservationByNrTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Assert.IsNotNull(Target.GetReservation(1));
         }
 
         [TestMethod]
