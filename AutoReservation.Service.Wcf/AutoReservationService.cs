@@ -12,6 +12,7 @@ namespace AutoReservation.Service.Wcf
     public class AutoReservationService : IAutoReservationService
     {
         AutoReservationBusinessComponent _businessComponent = new AutoReservationBusinessComponent();
+
         private static void WriteActualMethod()
         {
             Console.WriteLine("Calling: " + new StackTrace().GetFrame(1).GetMethod().Name);
@@ -91,16 +92,16 @@ namespace AutoReservation.Service.Wcf
             }
         }
 
-        public void UpdateAuto(AutoDto original, AutoDto modified)
+        public virtual void UpdateAuto(AutoDto original, AutoDto modified)
         {
             WriteActualMethod();
             try
             {
                 _businessComponent.UpdateAuto(original.ConvertToEntity(), modified.ConvertToEntity());
             }
-            catch (LocalOptimisticConcurrencyException<Reservation> e)
+            catch (LocalOptimisticConcurrencyException<Auto> e)
             {
-                throw new FaultException<LocalOptimisticConcurrencyException<Reservation>>(e);
+                throw new FaultException<LocalOptimisticConcurrencyException<Auto>>(e);
             }
         }
 
@@ -111,9 +112,9 @@ namespace AutoReservation.Service.Wcf
             {
                 _businessComponent.UpdateKunde(original.ConvertToEntity(), modified.ConvertToEntity());
             }
-            catch (LocalOptimisticConcurrencyException<Reservation> e)
+            catch (LocalOptimisticConcurrencyException<Kunde> e)
             {
-                throw new FaultException<LocalOptimisticConcurrencyException<Reservation>>(e);
+                throw new FaultException<LocalOptimisticConcurrencyException<Kunde>>(e);
             }
         }
 

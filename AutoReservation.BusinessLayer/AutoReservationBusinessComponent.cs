@@ -9,7 +9,7 @@ namespace AutoReservation.BusinessLayer
     public class AutoReservationBusinessComponent
     {
 
-        private static void HandleDbConcurrencyException<T>(AutoReservationEntities context, T original) where T : class
+        protected static void HandleDbConcurrencyException<T>(AutoReservationEntities context, T original) where T : class
         {
             var databaseValue = context.Entry(original).GetDatabaseValues();
             context.Entry(original).CurrentValues.SetValues(databaseValue);
@@ -42,7 +42,7 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public void UpdateReservation(Reservation original, Reservation modified)
+        public virtual void UpdateReservation(Reservation original, Reservation modified)
         {
             using (var context = new AutoReservationEntities())
             {
@@ -122,7 +122,7 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public void UpdateAuto(Auto original, Auto modified)
+        public virtual void UpdateAuto(Auto original, Auto modified)
         {
             using (var context = new AutoReservationEntities())
             {
@@ -182,7 +182,7 @@ namespace AutoReservation.BusinessLayer
 
             }
         }
-        public void UpdateKunde(Kunde original, Kunde modified)
+        public virtual void UpdateKunde(Kunde original, Kunde modified)
         {
             using (var context = new AutoReservationEntities())
             {

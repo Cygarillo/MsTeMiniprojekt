@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using AutoReservation.BusinessLayer;
 using AutoReservation.Common.DataTransferObjects;
+using AutoReservation.Dal;
+using AutoReservation.Service.Wcf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AutoReservation.Common.Interfaces;
 
@@ -70,7 +73,6 @@ namespace AutoReservation.Testing
                                         Id = 10,
                                         Marke = "BMW",
                                         AutoKlasse = AutoKlasse.Mittelklasse,
-                                        Basistarif = 50,
                                         Tagestarif = 60
                                     });
             }
@@ -122,55 +124,101 @@ namespace AutoReservation.Testing
         [TestMethod]
         public void UpdateAutoTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            try
+            {
+                var original = Target.GetAuto(1);
+                var modified = (AutoDto)original.Clone();
+                modified.Tagestarif += 10;
+                Target.UpdateAuto(original, modified);
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
         public void UpdateKundeTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            try
+            {
+                var original = Target.GetKunde(1);
+                var modified = (KundeDto)original.Clone();
+                modified.Nachname += "a";
+                Target.UpdateKunde(original, modified);
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
         public void UpdateReservationTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            try
+            {
+                var original = Target.GetReservation(1);
+                var modified = (ReservationDto)original.Clone();
+                modified.Bis = modified.Bis.AddDays(3);
+                Target.UpdateReservation(original, modified);
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyException<Auto>>), "")]
         public void UpdateAutoTestWithOptimisticConcurrency()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            using(var context = new AutoReservationEntities())
+            {
+                var auto = Target.GetAuto(1).ConvertToEntity();
+                context.Autos.Attach(auto);
+                auto.Tagestarif += 10;
+                Target.UpdateAuto(Target.GetAuto(1), auto.ConvertToDto());
+                context.SaveChanges();
+            }
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyException<Kunde>>), "")]
         public void UpdateKundeTestWithOptimisticConcurrency()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Target.UpdateKunde(Target.GetKunde(1), Target.GetKunde(1));
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyException<Reservation>>), "")]
         public void UpdateReservationTestWithOptimisticConcurrency()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Target.UpdateReservation(Target.GetReservation(1), Target.GetReservation(1));
         }
 
         [TestMethod]
         public void DeleteKundeTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            int countBefore = Target.GetKunden().Count;
+            Target.DeleteKunde(Target.GetKunde(1));
+            Assert.AreEqual(countBefore - 1, Target.GetKunden().Count);
         }
 
         [TestMethod]
         public void DeleteAutoTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            int countBefore = Target.GetAutos().Count;
+            Target.DeleteAuto(Target.GetAuto(1));
+            Assert.AreEqual(countBefore - 1, Target.GetAutos().Count);
         }
 
         [TestMethod]
         public void DeleteReservationTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            int countBefore = Target.GetReservationen().Count;
+            Target.DeleteReservation(Target.GetReservation(1));
+            Assert.AreEqual(countBefore - 1, Target.GetReservationen().Count);
         }
     }
 }

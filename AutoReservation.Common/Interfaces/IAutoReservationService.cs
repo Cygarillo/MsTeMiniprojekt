@@ -4,7 +4,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using AutoReservation.BusinessLayer;
 using AutoReservation.Common.DataTransferObjects;
+using AutoReservation.Dal;
 
 namespace AutoReservation.Common.Interfaces
 {
@@ -12,13 +14,10 @@ namespace AutoReservation.Common.Interfaces
     public interface IAutoReservationService
     {
         [OperationContract]
-        [FaultContract(typeof(EntityNotFoundException))]
         AutoDto GetAuto(int id);
         [OperationContract]
-        [FaultContract(typeof(EntityNotFoundException))]
         KundeDto GetKunde(int id);
         [OperationContract]
-        [FaultContract(typeof(EntityNotFoundException))]
         ReservationDto GetReservation(int reservationNr);
         [OperationContract]
         List<AutoDto> GetAutos();
@@ -33,10 +32,13 @@ namespace AutoReservation.Common.Interfaces
         [OperationContract]
         void AddReservation(ReservationDto reservation);
         [OperationContract]
+        [FaultContract(typeof(LocalOptimisticConcurrencyException<Auto>))]
         void UpdateAuto(AutoDto original, AutoDto modified);
         [OperationContract]
+        [FaultContract(typeof(LocalOptimisticConcurrencyException<Kunde>))]
         void UpdateKunde(KundeDto original, KundeDto modified);
         [OperationContract]
+        [FaultContract(typeof(LocalOptimisticConcurrencyException<Reservation>))]
         void UpdateReservation(ReservationDto original, ReservationDto modified);
         [OperationContract]
         void DeleteAuto(AutoDto auto);
@@ -44,24 +46,5 @@ namespace AutoReservation.Common.Interfaces
         void DeleteKunde(KundeDto kunde);
         [OperationContract]
         void DeleteReservation(ReservationDto reservation);
-    }
-
-    [DataContract]
-    public class EntityNotFoundException
-    {
-        private int _id;
-        private string _entityName;
-
-        public EntityNotFoundException(string entityName, int id)
-        {
-            _entityName = entityName;
-            _id = id;
-        }
-
-        [DataMember]
-        public string Message
-        {
-            get { return String.Format("Entity with id {0} of Type {1} not Found", _id, _entityName); }
-        }
     }
 }
