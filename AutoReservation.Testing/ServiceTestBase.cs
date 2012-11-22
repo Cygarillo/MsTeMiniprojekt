@@ -57,25 +57,66 @@ namespace AutoReservation.Testing
         [TestMethod]
         public void GetReservationByIllegalNr()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            Assert.IsNull(Target.GetReservation(-1));
         }
 
         [TestMethod]
         public void InsertAutoTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            try
+            {
+                Target.AddAuto(new AutoDto()
+                                    {
+                                        Id = 10,
+                                        Marke = "BMW",
+                                        AutoKlasse = AutoKlasse.Mittelklasse,
+                                        Basistarif = 50,
+                                        Tagestarif = 60
+                                    });
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
         public void InsertKundeTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            try
+            {
+                Target.AddKunde(new KundeDto()
+                {
+                    Geburtsdatum = new DateTime(1980, 1, 4),
+                    Id = 10,
+                    Nachname = "Maulwurf",
+                    Vorname = "Hans"
+                });
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
         public void InsertReservationTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            try
+            {
+                Target.AddReservation(new ReservationDto()
+                {
+                    ReservationNr = 10,
+                    Auto = Target.GetAuto(1),
+                    Kunde = Target.GetKunde(1),
+                    Von = DateTime.UtcNow,
+                    Bis = DateTime.UtcNow.AddDays(5)
+                });
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]

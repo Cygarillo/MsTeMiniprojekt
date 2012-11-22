@@ -205,7 +205,7 @@ namespace AutoReservation.BusinessLayer
         {
             using (var context = new AutoReservationEntities())
             {
-                return (from a in context.Autos where a.Id == id select a).ToList().ElementAtOrDefault(0);
+                return (from a in context.Autos where a.Id == id select a).FirstOrDefault();
             }
         }
 
@@ -213,7 +213,7 @@ namespace AutoReservation.BusinessLayer
         {
             using (var context = new AutoReservationEntities())
             {
-                return (from k in context.Kunden where k.Id == id select k).ToList().ElementAtOrDefault(0);
+                return (from k in context.Kunden where k.Id == id select k).FirstOrDefault();
             }
         }
 
