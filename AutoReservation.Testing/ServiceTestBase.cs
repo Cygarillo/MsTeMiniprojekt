@@ -170,31 +170,45 @@ namespace AutoReservation.Testing
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyException<Auto>>), "")]
+        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyFault>), "")]
         public void UpdateAutoTestWithOptimisticConcurrency()
         {
-            using(var context = new AutoReservationEntities())
-            {
-                var auto = Target.GetAuto(1).ConvertToEntity();
-                context.Autos.Attach(auto);
-                auto.Tagestarif += 10;
-                Target.UpdateAuto(Target.GetAuto(1), auto.ConvertToDto());
-                context.SaveChanges();
-            }
+            var original1 = Target.GetAuto(1);
+            var modified1 = Target.GetAuto(1);
+            var original2 = Target.GetAuto(1);
+            var modified2 = Target.GetAuto(1);
+            modified1.Tagestarif += 10;
+            Target.UpdateAuto(original1, modified1);
+            modified2.Tagestarif += 10;
+            Target.UpdateAuto(original2, modified2);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyException<Kunde>>), "")]
+        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyFault>), "")]
         public void UpdateKundeTestWithOptimisticConcurrency()
         {
-            Target.UpdateKunde(Target.GetKunde(1), Target.GetKunde(1));
+            var original1 = Target.GetKunde(1);
+            var modified1 = Target.GetKunde(1);
+            var original2 = Target.GetKunde(1);
+            var modified2 = Target.GetKunde(1);
+            modified1.Nachname += "er";
+            Target.UpdateKunde(original1, modified1);
+            modified2.Nachname += "er";
+            Target.UpdateKunde(original2, modified2);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyException<Reservation>>), "")]
+        [ExpectedException(typeof(FaultException<LocalOptimisticConcurrencyFault>), "")]
         public void UpdateReservationTestWithOptimisticConcurrency()
         {
-            Target.UpdateReservation(Target.GetReservation(1), Target.GetReservation(1));
+            var original1 = Target.GetReservation(1);
+            var modified1 = Target.GetReservation(1);
+            var original2 = Target.GetReservation(1);
+            var modified2 = Target.GetReservation(1);
+            modified1.Bis = modified1.Bis.AddDays(2);
+            Target.UpdateReservation(original1, modified1);
+            modified2.Bis = modified1.Bis.AddDays(2);
+            Target.UpdateReservation(original2, modified2);
         }
 
         [TestMethod]

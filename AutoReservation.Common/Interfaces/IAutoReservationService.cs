@@ -32,13 +32,13 @@ namespace AutoReservation.Common.Interfaces
         [OperationContract]
         void AddReservation(ReservationDto reservation);
         [OperationContract]
-        [FaultContract(typeof(LocalOptimisticConcurrencyException<Auto>))]
+        [FaultContract(typeof(LocalOptimisticConcurrencyFault))]
         void UpdateAuto(AutoDto original, AutoDto modified);
         [OperationContract]
-        [FaultContract(typeof(LocalOptimisticConcurrencyException<Kunde>))]
+        [FaultContract(typeof(LocalOptimisticConcurrencyFault))]
         void UpdateKunde(KundeDto original, KundeDto modified);
         [OperationContract]
-        [FaultContract(typeof(LocalOptimisticConcurrencyException<Reservation>))]
+        [FaultContract(typeof(LocalOptimisticConcurrencyFault))]
         void UpdateReservation(ReservationDto original, ReservationDto modified);
         [OperationContract]
         void DeleteAuto(AutoDto auto);
