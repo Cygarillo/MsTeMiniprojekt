@@ -9,9 +9,12 @@
         <ViewModels:ReservationViewModel />
     </UserControl.DataContext>
     <UserControl.Resources>
-        
-        <Converters:AutoKlasseEnumConverter x:Key="AutoKlasseEnumConverter" />
-        <Converters:BasistarifVisibilityConverter x:Key="BasistarifVisibilityConverter" />
+        <!--<CollectionViewSource x:Key="Autos">
+            <CollectionViewSource.Source>
+                <ObjectDataProvider ObjectType="{x:Type Common:AutoDto}" MethodName="Marke">
+                </ObjectDataProvider>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>-->
         <Converters:DetailViewVisibilityConverter x:Key="DetailViewVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
@@ -41,8 +44,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Auto" Binding="{Binding Auto}" />
                     <DataGridTextColumn Header="Kunde" Binding="{Binding Kunde}" />
-                    <DataGridTextColumn Header="Von" Binding="{Binding Von}" />
-                    <DataGridTextColumn Header="Bis" Binding="{Binding Bis}" />
+                    <DataGridTextColumn Header="Von" Binding="{Binding Von, StringFormat=\{0:dd.MM.yyyy\}}" />
+                    <DataGridTextColumn Header="Bis" Binding="{Binding Bis, StringFormat=\{0:dd.MM.yyyy\}}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -95,13 +98,15 @@
             <ComboBox Grid.Column="1" Grid.Row="2" 
                       ItemsSource="{Binding Kunden}"
                       SelectedItem="{Binding SelectedReservation.Kunde}" 
-                      />
+                      >
+                
+            </ComboBox>
 
 
-            <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding SelectedReservation.Von}" DisplayDateEnd="12/31/2020" DisplayDateStart="1/1/1900"/>
+                <DatePicker Grid.Column="1" Grid.Row="3" SelectedDate="{Binding SelectedReservation.Von}" DisplayDateEnd="12/31/2020" DisplayDateStart="1/1/1900"/>
             <DatePicker Grid.Column="1" Grid.Row="4" SelectedDate="{Binding SelectedReservation.Bis}"  DisplayDateEnd="12/31/2020" DisplayDateStart="1/1/1900"/>
         </Grid>
-        
+
 
     </Grid>
 </UserControl>
