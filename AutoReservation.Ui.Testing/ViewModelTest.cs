@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel;
+using System.Windows;
+using System.Windows.Input;
 using AutoReservation.Testing;
 using AutoReservation.Ui.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,19 +19,31 @@ namespace AutoReservation.Ui.Testing
         [TestMethod]
         public void AutosLoadTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            var model = new AutoViewModel();
+            var loadCommand = model.LoadCommand;
+            Assert.IsTrue(loadCommand.CanExecute(null));
+            loadCommand.Execute(null);
+            Assert.AreEqual(3,model.Autos.Count);
         }
 
         [TestMethod]
         public void KundenLoadTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            var model = new KundeViewModel();
+            var loadCommand = model.LoadCommand;
+            Assert.IsTrue(loadCommand.CanExecute(null));
+            loadCommand.Execute(null);
+            Assert.AreEqual(4, model.Kunden.Count);
         }
 
         [TestMethod]
         public void ReservationenLoadTest()
         {
-            Assert.Inconclusive("Test wurde noch nicht implementiert!");
+            var model = new ReservationViewModel();
+            var loadCommand = model.LoadCommand;
+            Assert.IsTrue(loadCommand.CanExecute(null));
+            loadCommand.Execute(null);
+            Assert.AreEqual(3, model.Autos.Count);
         }
     }
 }

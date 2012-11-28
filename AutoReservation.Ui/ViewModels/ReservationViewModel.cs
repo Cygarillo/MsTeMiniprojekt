@@ -8,7 +8,7 @@ using AutoReservation.Common.DataTransferObjects;
 
 namespace AutoReservation.Ui.ViewModels
 {
-    class ReservationViewModel : ViewModelBase
+    public class ReservationViewModel : ViewModelBase
     {
         private readonly List<ReservationDto> reservationenOriginal = new List<ReservationDto>();
         private ObservableCollection<ReservationDto> reservationen;
