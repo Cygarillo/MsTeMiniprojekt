@@ -79,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\ReservationViewModel.cs" />
+    <Compile Include="Views\ReservationView.xaml.cs">
+      <DependentUpon>ReservationView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\AutoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,11 +107,16 @@
     </Compile>
     <Compile Include="Factory\BusinessLayerCreator.cs" />
     <Compile Include="Factory\Creator.cs" />
+    <Compile Include="Factory\LocalDataAccessCreator.cs" />
     <Compile Include="Factory\ServiceLayerCreator.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ReservationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\DetailViewVisibilityConverter.cs" />
@@ -172,7 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoReservation.Common\AutoReservation.Common.csproj">
-      <Project>{22972439-3FFF-41D2-B5AE-6C06ABC66EB4}</Project>
+      <Project>{22972439-3fff-41d2-b5ae-6c06abc66eb4}</Project>
       <Name>AutoReservation.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\AutoReservation.Service.Wcf\AutoReservation.Service.Wcf.csproj">

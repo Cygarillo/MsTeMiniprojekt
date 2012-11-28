@@ -1,12 +1,11 @@
-﻿using AutoReservation.Common.Interfaces;
+﻿using System;
+using AutoReservation.Common.Interfaces;
 using AutoReservation.Service.Wcf;
 
 namespace AutoReservation.Ui.Factory
 {
-    public class BusinessLayerCreator : Creator
+    class LocalDataAccessCreator : Creator
     {
-       
-
         public override IAutoReservationService CreateInstance()
         {
             return new AutoReservationService();

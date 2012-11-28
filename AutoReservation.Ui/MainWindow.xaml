@@ -22,7 +22,7 @@
                 <Views:KundeView x:Name="kvKundenView"/>
             </TabItem>
             <TabItem Header="Reservationen">
-                <Views:ReservationView x:Name="kvReservationen"/>
+               <Views:ReservationView x:Name="kvReservationen"/>
             </TabItem>
         </TabControl>
     </Grid>

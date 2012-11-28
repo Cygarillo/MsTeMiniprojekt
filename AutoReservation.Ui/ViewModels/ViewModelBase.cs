@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Threading;
+using AutoReservation.Common;
 using AutoReservation.Common.Interfaces;
 using AutoReservation.Ui.Factory;
 using System.Windows;
